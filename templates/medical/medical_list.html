@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="title">Articles</h1>
+
+<p>{{user.email}}</p>
+
+<div>
+	<a class="button is-primary" href="create">Create</a>
+</div>
+<div class="columns mt-5">
+	{% for article in object_list %}
+
+	<div class="card column is-one-third">
+		<div class="card-image">
+			<figure class="image is-4by3">
+				<img src="{{article.image.url}}" alt="">
+			</figure>
+		</div>
+		<div class="card-content">
+			<h3 class="title">{{ article.name }}</h3>
+			<p>{{article.description}}</p>
+		</div>
+    <footer class="card-footer">
+		  <p class="card-footer-item">
+        <span>View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a></span>
+			</p>
+			<p class="card-footer-item">
+				<span>
+					Share on <a href="#">Facebook</a>
+				</span>
+			</p>
+		</footer>
+	</div>
+
+	{% empty %}
+	<li>No articles yet.</li>
+	{% endfor %}
+</div>
+
+{% endblock %}
