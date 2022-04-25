@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BASIC Medical Services</title>
+<html lang="en" data-theme="winter">
 
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>BASIC Medical Services</title>
 
-		{% load static %}
-		<link rel="stylesheet" href="{% static 'styles.css' %}">
+	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"> -->
 
-  </head>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/app.build.css' %}">
+	<script src="{% static 'js/app.build.js' %}" defer></script>
+	<link rel="shortcut icon" type="image/ico" href="{% static 'images/favicon.ico' %}" />
 
+</head>
 
-  <body class="container test">
-    {% block content %} {% endblock %}
-  </body>
+<header class="sticky top-0">
+	{% block nav %} {% endblock %}
+</header>
+
+<body>
+	{% block content %} {% endblock %}
+</body>
+
 </html>

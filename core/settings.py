@@ -20,8 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -31,11 +29,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
-    'rest_framework',
-
+    "rest_framework",
+    "rest_framework.authtoken",
     "apps.medical",
-    'storages',
+    "storages",
     "django_light",
 ]
 
@@ -65,7 +62,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 
 # Database
@@ -119,22 +115,26 @@ SECRET_KEY = "django-insecure-r%-naig3-k*y0rxh%r9_p+^_dl0o1b-8^uc%0v1xqeif9!@^2j
 DEBUG = True
 
 
-WSGI_APPLICATION = "config.wsgi.application"
-ROOT_URLCONF = "config.urls"
+WSGI_APPLICATION = "core.wsgi.application"
+ROOT_URLCONF = "core.urls"
 
-AUTHENTICATION_BACKENDS = ["config.email_backend.EmailBackend"]
+AUTHENTICATION_BACKENDS = ["core.email_backend.EmailBackend"]
 LOGIN_REDIRECT_URL = "/"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-STATIC_ROOT = BASE_DIR / "static"
+# STATIC_ROOT = BASE_DIR / "static"
 STATIC_URL = "/static/"
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    # "/var/www/static/"
+]
 
-MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "uploads"
+MEDIA_URL = "/uploads/"
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ]
 }

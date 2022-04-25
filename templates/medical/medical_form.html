@@ -1,13 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="card max-w-2xl mx-auto p-4">
 
-<form method="post" enctype="multipart/form-data">
-	{% csrf_token %}
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
 
-	{{ form.as_p }}
+		<!-- {{ form }} -->
 
-	<input type="submit" value="Update">
-</form>
+		{% for field in form %}
+		<div class="form-control">
+			{{ field.errors }}
+			<label for="{{ field.id_for_label }}" class="label">
+				{{ field.label }}
+			</label>
+
+			{{ field }}
+		</div>
+		{% endfor %}
+
+		<button type="submit" class="btn mt-4 w-full">
+			Create
+		</button>
+	</form>
+</div>
 
 {% endblock %}
