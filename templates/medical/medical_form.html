@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<div class="card max-w-2xl mx-auto p-4">
+{% block nav %}
+{% include "medical/nav.html" %}
+{% endblock %}
 
+{% block content %}
+<div class="max-w-2xl p-4 mx-auto card">
 	<form method="post" enctype="multipart/form-data">
 		{% csrf_token %}
 
@@ -19,7 +22,7 @@
 		</div>
 		{% endfor %}
 
-		<button type="submit" class="btn mt-4 w-full">
+		<button type="submit" class="w-full mt-4 btn">
 			Create
 		</button>
 	</form>

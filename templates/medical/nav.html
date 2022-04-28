@@ -1,9 +1,9 @@
 <nav class="navbar bg-base-100">
     <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl">basic track</a>
+        <a class="text-xl normal-case btn btn-ghost" href="/">basic track</a>
     </div>
     {% with request.resolver_match.url_name as url_name %}
-    <ul class="menu menu-horizontal p-0">
+    <ul class="p-0 menu menu-horizontal">
         <li>
             <a href="/" class="{% if url_name == 'author-list' %}active{% endif %}">Home</a>
         </li>

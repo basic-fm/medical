@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="winter">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BASIC Medical Services</title>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>BASIC Medical Services</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"> -->
 
-	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"> -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/build/app.css' %}" />
+    <script src="{% static 'js/build/app.js' %}" defer></script>
+    <link
+      rel="shortcut icon"
+      type="image/ico"
+      href="{% static 'images/favicon.ico' %}"
+    />
+  </head>
 
-	{% load static %}
-	<link rel="stylesheet" href="{% static 'css/app.build.css' %}">
-	<script src="{% static 'js/app.build.js' %}" defer></script>
-	<link rel="shortcut icon" type="image/ico" href="{% static 'images/favicon.ico' %}" />
+  <body>
+    <header class="sticky top-0">{% block nav %} {% endblock %}</header>
 
-</head>
+    <div id="root"></div>
 
-<header class="sticky top-0">
-	{% block nav %} {% endblock %}
-</header>
-
-<body>
-	{% block content %} {% endblock %}
-</body>
-
+    <main>{% block content %} {% endblock %}</main>
+  </body>
 </html>
