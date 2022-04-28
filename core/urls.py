@@ -9,12 +9,12 @@ urlpatterns = (
     [
         path("", lambda _: redirect("api/")),
         path("", include("apps.medical.urls")),
-        path("api/", include("apps.api.urls")),
         path("admin/", admin.site.urls),
-        path("auth/", include("django.contrib.auth.urls")),
+        # path("auth/", include("django.contrib.auth.urls")),
+        # API Routes
+        path("api/", include("apps.api.urls")),
         path("api/auth/", include("rest_framework.urls")),
         path("api/token/", views.obtain_auth_token),
-        # path("__debug__/", include("debug_toolbar.urls")),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
