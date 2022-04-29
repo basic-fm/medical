@@ -1,12 +1,12 @@
 from django.contrib.auth.models import Group, User
 from django.utils import timezone
 from django_filters import rest_framework as filters
-from rest_framework import permissions, status, viewsets
+from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 
-from apps.medical.models import Car, Delivery, Place, Project, Receit
+from apps.medical.models import Car, Delivery, Place, Project
 
 from .serializers import (
     CarSerializer,
@@ -85,12 +85,11 @@ class DeliverySet(viewsets.ModelViewSet):
         detail=True,
         methods=["post"],
         parser_classes=[MultiPartParser, FormParser],
+        serializer_classes={"default": ReceitSerializer}, 
     )
     def finish_delivery(self, request, pk=None):
         serializer = ReceitSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+        serializer.is_valid(raise_exception=True)
         receit = serializer.save()
 
         delivery = self.get_object()
@@ -104,3 +103,5 @@ class DeliverySet(viewsets.ModelViewSet):
         return self.serializer_classes.get(
             self.action, self.serializer_classes["default"]
         )
+
+
