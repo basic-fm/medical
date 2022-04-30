@@ -120,7 +120,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
-# STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "static"
+# STATICFILES_DIRS = [BASE_DIR / "assets"]
 
 
 # Rest Framework
