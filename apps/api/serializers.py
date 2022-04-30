@@ -10,10 +10,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["url", "username", "email", "groups"]
 
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Group
-        fields = ["url", "name"]
+# class GroupSerializer(serializers.HyperlinkedModelSerializer):
+#     class Meta:
+#         model = Group
+#         fields = ["url", "name"]
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
@@ -81,6 +81,7 @@ class DeliveryReadSerializer(serializers.ModelSerializer):
     from_place = PlaceSerializer(many=False)
     to_place = PlaceSerializer(many=False)
     parcels = ParcelSerializer(many=True)
+    receit = ReceitSerializer(many=False)
 
     class Meta:
         model = Delivery

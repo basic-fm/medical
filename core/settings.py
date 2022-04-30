@@ -1,15 +1,22 @@
+import os
+import sys
 from pathlib import Path
+
+import dj_database_url
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-WSGI_APPLICATION = "core.wsgi.application"
-
 ROOT_URLCONF = "core.urls"
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-r%-naig3-k*y0rxh%r9_p+^_dl0o1b-8^uc%0v1xqeif9!@^2j"
+WSGI_APPLICATION = "core.wsgi.application"
 
-# SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
 DEBUG = True
 
 # Application definition
@@ -25,6 +32,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "django_filters",
+    "storages",
     # local apps
     "apps.medical.apps.MedicalConfig",
     "apps.api.apps.ApiConfig",
@@ -38,7 +46,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 
@@ -69,6 +76,21 @@ DATABASES = {
     }
 }
 
+if DEVELOPMENT_MODE is True:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+elif len(sys.argv) > 0 and sys.argv[1] != "collectstatic":
+    if os.getenv("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
+
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -86,32 +108,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 LANGUAGE_CODE = "de-de"
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Berlin"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
-# STATIC_ROOT = BASE_DIR / "static"
-STATICFILES_DIRS = [BASE_DIR / "static"]
-
-MEDIA_ROOT = BASE_DIR / "uploads"
-MEDIA_URL = "/uploads/"
-
-LOGIN_REDIRECT_URL = "/"
-
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-ALLOWED_HOSTS = ["*"]
+# STATICFILES_DIRS = [BASE_DIR / "static"]
 
 
+# Rest Framework
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -120,3 +132,21 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
+
+
+# Storage settings
+MEDIA_ROOT = BASE_DIR / "uploads"
+MEDIA_URL = "/uploads/"
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+AWS_S3_REGION_NAME = "fra1"
+AWS_S3_ENDPOINT_URL = f"https://fra1.digitaloceanspaces.com"
+AWS_ACCESS_KEY_ID = os.environ.get("SPACES_KEY")
+AWS_SECRET_ACCESS_KEY = os.environ.get("SPACES_SECRET")
+AWS_STORAGE_BUCKET_NAME = os.environ.get("SPACES_BUCKET", "infocenter-test")
+AWS_S3_FILE_OVERWRITE = False
+
+
+# Other settings
+LOGIN_REDIRECT_URL = "/"
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")

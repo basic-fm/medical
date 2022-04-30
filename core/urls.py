@@ -10,7 +10,7 @@ urlpatterns = (
         path("", lambda _: redirect("api/")),
         path("", include("apps.medical.urls")),
         path("admin/", admin.site.urls),
-        # path("auth/", include("django.contrib.auth.urls")),
+        path("auth/", include("django.contrib.auth.urls")),
         # API Routes
         path("api/", include("apps.api.urls")),
         path("api/auth/", include("rest_framework.urls")),

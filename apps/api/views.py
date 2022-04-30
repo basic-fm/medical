@@ -12,7 +12,6 @@ from .serializers import (
     CarSerializer,
     DeliveryReadSerializer,
     DeliveryWriteSerializer,
-    GroupSerializer,
     PlaceSerializer,
     ProjectSerializer,
     ReceitSerializer,
@@ -48,9 +47,9 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class GroupViewSet(viewsets.ModelViewSet):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+# class GroupViewSet(viewsets.ModelViewSet):
+#     queryset = Group.objects.all()
+#     serializer_class = GroupSerializer
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -85,7 +84,7 @@ class DeliverySet(viewsets.ModelViewSet):
         detail=True,
         methods=["post"],
         parser_classes=[MultiPartParser, FormParser],
-        serializer_classes={"default": ReceitSerializer}, 
+        serializer_classes={"default": ReceitSerializer},
     )
     def finish_delivery(self, request, pk=None):
         serializer = ReceitSerializer(data=request.data)
@@ -103,5 +102,3 @@ class DeliverySet(viewsets.ModelViewSet):
         return self.serializer_classes.get(
             self.action, self.serializer_classes["default"]
         )
-
-
