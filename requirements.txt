@@ -10,6 +10,7 @@ django-light==0.1.0.post3
 django-storages==1.12.3
 django-stubs-ext==0.4.0
 djangorestframework==3.13.1
+gunicorn==20.1.0
 jmespath==1.0.0
 mypy==0.942
 mypy-extensions==0.4.3
