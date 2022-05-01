@@ -1,5 +1,5 @@
 import os
-from unicodedata import name
+import re
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -37,12 +37,21 @@ class Parcel(models.Model):
 
 
 def get_upload_path(instance, filename):
-    return os.path.join("receits/", instance.id, filename)
+    return os.path.join(
+        "receits/",
+        str(instance.delivery.id),
+        re.sub(r"[^A-Za-z ]", "", instance.name).replace(" ", "_").lower(),
+    )
 
 
 class Receit(models.Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to=get_upload_path)
+
+    delivery = models.OneToOneField(
+        "Delivery",
+        on_delete=models.CASCADE,
+    )
 
     def __str__(self):
         return self.name
@@ -60,13 +69,6 @@ class Delivery(models.Model):
     driver = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     delivered_at = models.DateTimeField(null=True, blank=True)
-
-    receit = models.OneToOneField(
-        Receit,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-    )
 
     def __str__(self):
         return "# {}: {} -> {}".format(self.id, self.from_place, self.to_place)

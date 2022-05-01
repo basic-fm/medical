@@ -47,11 +47,6 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-# class GroupViewSet(viewsets.ModelViewSet):
-#     queryset = Group.objects.all()
-#     serializer_class = GroupSerializer
-
-
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
@@ -89,12 +84,7 @@ class DeliverySet(viewsets.ModelViewSet):
     def finish_delivery(self, request, pk=None):
         serializer = ReceitSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        receit = serializer.save()
-
-        delivery = self.get_object()
-        delivery.delivered_at = timezone.now()
-        delivery.receit = receit
-        delivery.save()
+        serializer.save(delivery_id=pk)
 
         return Response(serializer.data)
 
