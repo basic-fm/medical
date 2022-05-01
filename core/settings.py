@@ -156,4 +156,5 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split("
 
 # USE_X_FORWARDED_HOST = True
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_TRUSTED_ORIGINS = ['https://*.basic-fm.info','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ["https://*.basic-fm.info", "https://*.127.0.0.1"]
+AUTHENTICATION_BACKENDS = ["core.email_auth_backend.EmailBackend"]
