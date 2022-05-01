@@ -40,7 +40,7 @@ def get_upload_path(instance, filename):
     return os.path.join(
         "receits/",
         str(instance.delivery.id),
-        re.sub(r"[^A-Za-z ]", "", instance.name).replace(" ", "_").lower(),
+        re.sub(r"[^a-z]", "", instance.name.lower()),
     )
 
 
