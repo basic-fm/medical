@@ -17,7 +17,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
 # Application definition
 INSTALLED_APPS = [
