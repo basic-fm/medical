@@ -51,6 +51,14 @@ class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
+    def list(self, request):
+        projects = Project.objects.filter(members__id=request.user.id).all()
+        serializer = ProjectSerializer(
+            projects, many=True, context={"request": request}
+        )
+
+        return Response(serializer.data)
+
     @action(detail=True, methods=["get"])
     def cars(self, request, pk=None):
         cars = Car.objects.filter(project=pk).all()
