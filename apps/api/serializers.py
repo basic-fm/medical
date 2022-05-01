@@ -59,7 +59,6 @@ class DeliveryWriteSerializer(serializers.ModelSerializer):
             "car",
             "driver",
             "parcels",
-            "receit",
             "created_at",
             "delivered_at",
         ]

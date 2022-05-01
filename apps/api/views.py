@@ -95,6 +95,10 @@ class DeliverySet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save(delivery_id=pk)
 
+        delivery = Delivery.objects.get(id=pk)
+        delivery.delivered_at = timezone.now()
+        delivery.save()
+
         return Response(serializer.data)
 
     def get_serializer_class(self):
