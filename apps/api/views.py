@@ -51,8 +51,9 @@ class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
-    def list(self, request):
-        projects = Project.objects.filter(members__id=request.user.id).all()
+    @action(detail=False, methods=["get"])
+    def my_projects(self, request):
+        projects = Project.objects.filter(members__id=request.user.id)
         serializer = ProjectSerializer(
             projects, many=True, context={"request": request}
         )
