@@ -9,5 +9,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# CMD [ "gunicorn", "core.wsgi" ]
-CMD [ "python3", "manage.py", "runserver" ]
+RUN python manage.py collectstatic
+# CMD [ "gunicorn", "core.wsgi", "0.0.0.0:8000"]
+CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "core.wsgi:application"]
+
