@@ -1,3 +1,4 @@
+import os
 from unicodedata import name
 
 from django.contrib.auth.models import User
@@ -35,9 +36,13 @@ class Parcel(models.Model):
         return "Parcel #" + str(self.id)
 
 
+def get_upload_path(instance, filename):
+    return os.path.join("receits/", instance.id, filename)
+
+
 class Receit(models.Model):
     name = models.CharField(max_length=100)
-    image = models.ImageField()
+    image = models.ImageField(upload_to=get_upload_path)
 
     def __str__(self):
         return self.name
