@@ -3,7 +3,8 @@
     "**/__pycache__": true,
     "**/__init__.py": true,
     "**/.vscode": true,
-    "**/env": true
+    "**/venv": true,
+    "**/.env.*": true
   },
   "python.formatting.provider": "black"
 }

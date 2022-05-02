@@ -46,6 +46,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # "core.middleware.DebugMiddleware",
 ]
 
 
@@ -121,9 +122,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static"
-STATICFILES_STORAGE = "core.storage_backends.StaticStorage"
 
-# STATICFILES_DIRS = [BASE_DIR / "assets"]
+if DEVELOPMENT_MODE is False:
+    STATICFILES_STORAGE = "core.storage_backends.StaticStorage"
 
 
 # Rest Framework
