@@ -52,6 +52,7 @@ class Receit(models.Model):
     delivery = models.OneToOneField(
         "Delivery",
         on_delete=models.CASCADE,
+        related_name="receit",
     )
 
     def __str__(self):
@@ -73,3 +74,4 @@ class Delivery(models.Model):
 
     def __str__(self):
         return "# {}: {} -> {}".format(self.id, self.from_place, self.to_place)
+

@@ -7,7 +7,7 @@ from rest_framework.authtoken import views
 
 urlpatterns = (
     [
-        path("", lambda _: redirect("api/")),
+        path("", lambda _: redirect("admin/")),
         path("", include("apps.medical.urls")),
         path("admin/", admin.site.urls),
         path("auth/", include("django.contrib.auth.urls")),
