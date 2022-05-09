@@ -2,23 +2,36 @@ from django.contrib import admin
 
 from .models import Car, Delivery, Parcel, Place, Project, Receit
 
+
 class ReceitInline(admin.TabularInline):
     model = Receit
-    readonly_fields = ['name',"image"]
+    readonly_fields = ["name", "image"]
     can_delete = False
 
+
 class ParcelAdmin(admin.ModelAdmin):
-    search_fields = ['barcode_data']
-    list_display = ['__str__', 'barcode_data']
+    search_fields = ["barcode_data"]
+    list_display = ["__str__", "barcode_data"]
+
 
 class DeliveryAdmin(admin.ModelAdmin):
     list_per_page = 20
-    list_filter = ['created_at', 'delivered_at']
-    list_display = ['id',"project", "from_place", "to_place", 'car', "driver", "parcel_count", "created_at", "delivered_at"]
+    list_filter = ["created_at", "delivered_at"]
+    list_display = [
+        "id",
+        "project",
+        "from_place",
+        "to_place",
+        "car",
+        "driver",
+        "parcel_count",
+        "created_at",
+        "delivered_at",
+    ]
     inlines = [ReceitInline]
-    # search_fields = ['id']
 
-    def parcel_count(self, obj):
+    # @staticmethod
+    def parcel_count(self, obj: Delivery):
         return obj.parcels.count()
 
     def project(self, obj):
@@ -26,13 +39,14 @@ class DeliveryAdmin(admin.ModelAdmin):
 
     def get_actions(self, request):
         actions = super().get_actions(request)
-        if 'delete_selected' in actions:
-            del actions['delete_selected']
+        if "delete_selected" in actions:
+            del actions["delete_selected"]
         return actions
 
 
 class HasProjectAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'project']
+    list_display = ["__str__", "project"]
+
 
 admin.site.register(Project)
 admin.site.register(Car, HasProjectAdmin)

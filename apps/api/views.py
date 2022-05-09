@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Group, User
+from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django_filters import rest_framework as filters
 from rest_framework import permissions, viewsets
@@ -7,6 +7,8 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 
 from apps.medical.models import Car, Delivery, Place, Project
+
+User = get_user_model()
 
 from .serializers import (
     CarSerializer,
@@ -77,6 +79,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
 class DeliverySet(viewsets.ModelViewSet):
     queryset = Delivery.objects.all()
+
     filterset_class = DeliveryFilter
     serializer_classes = {
         "retrieve": DeliveryReadSerializer,

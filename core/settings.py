@@ -7,17 +7,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ROOT_URLCONF = "core.urls"
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "True"
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
+
+ROOT_URLCONF = "core.urls"
 WSGI_APPLICATION = "core.wsgi.application"
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-DEBUG = os.getenv("DEBUG", "False") == "True"
 
 # Application definition
 INSTALLED_APPS = [
@@ -121,7 +121,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "static"
+if DEBUG:
+    STATICFILES_DIRS = [
+        # BASE_DIR / "static",
+        ("frontend", BASE_DIR / "frontend/dist"),
+    ]
+else:
+    STATIC_ROOT = BASE_DIR / "static"
 
 if DEVELOPMENT_MODE is False:
     STATICFILES_STORAGE = "core.storage_backends.StaticStorage"
