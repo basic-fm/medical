@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     "django_filters",
     "storages",
     # local apps
-    "tracking.apps.TrackingConfig",
+    "tracking",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -116,7 +117,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = []
 
 if DEVELOPMENT_MODE is False:
-    STATICFILES_STORAGE = "medical.storage_backends.StaticStorage"
+    STATICFILES_STORAGE = "medical.lib.storage_backends.StaticStorage"
 
 
 # Rest Framework
@@ -148,4 +149,4 @@ LOGIN_REDIRECT_URL = "/"
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 CSRF_TRUSTED_ORIGINS = ["https://*.basic-fm.info", "https://*.127.0.0.1"]
 
-AUTHENTICATION_BACKENDS = ["medical.email_auth_backend.EmailBackend"]
+AUTH_USER_MODEL = "accounts.User"
