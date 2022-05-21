@@ -10,10 +10,9 @@ urlpatterns = (
         path("admin/", admin.site.urls),
         path("auth/", include("django.contrib.auth.urls")),
         # App urls
-        # path("", lambda _: redirect("admin/")),
-        path("", include("apps.medical.urls")),
+        path("", lambda _: redirect("admin/")),
+        path("", include("tracking.urls")),
         # API urls
-        path("api/", include("apps.api.urls")),
         path("api/auth/", include("rest_framework.urls")),
         path("api/token/", views.obtain_auth_token),
     ]

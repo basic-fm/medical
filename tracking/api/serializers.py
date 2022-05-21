@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-
-from apps.medical.models import Car, Delivery, Parcel, Place, Project, Receit
+from tracking.models import Car, Delivery, Parcel, Place, Project, Receit
 
 User = get_user_model()
 

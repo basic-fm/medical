@@ -13,8 +13,8 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "True"
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
 
-ROOT_URLCONF = "core.urls"
-WSGI_APPLICATION = "core.wsgi.application"
+ROOT_URLCONF = "medical.urls"
+WSGI_APPLICATION = "medical.wsgi.application"
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
@@ -34,8 +34,7 @@ INSTALLED_APPS = [
     "django_filters",
     "storages",
     # local apps
-    "apps.medical.apps.MedicalConfig",
-    "apps.api.apps.ApiConfig",
+    "tracking.apps.TrackingConfig",
 ]
 
 MIDDLEWARE = [
@@ -70,18 +69,11 @@ TEMPLATES = [
 
 
 # Database
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
-
 if DEVELOPMENT_MODE is True:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+            "NAME": BASE_DIR / "db.sqlite3",
         }
     }
 elif len(sys.argv) > 0 and sys.argv[1] != "collectstatic":
@@ -112,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 LANGUAGE_CODE = "de-de"
 TIME_ZONE = "Europe/Berlin"
-USE_I18N = True
+USE_I18N = False
 USE_L10N = True
 USE_TZ = True
 
@@ -121,16 +113,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
-if DEBUG:
-    STATICFILES_DIRS = [
-        # BASE_DIR / "static",
-        ("frontend", BASE_DIR / "frontend/dist"),
-    ]
-else:
-    STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_DIRS = []
 
 if DEVELOPMENT_MODE is False:
-    STATICFILES_STORAGE = "core.storage_backends.StaticStorage"
+    STATICFILES_STORAGE = "medical.storage_backends.StaticStorage"
 
 
 # Rest Framework
@@ -160,8 +146,6 @@ AWS_S3_FILE_OVERWRITE = False
 # Other settings
 LOGIN_REDIRECT_URL = "/"
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-
-# USE_X_FORWARDED_HOST = True
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_TRUSTED_ORIGINS = ["https://*.basic-fm.info", "https://*.127.0.0.1"]
-AUTHENTICATION_BACKENDS = ["core.email_auth_backend.EmailBackend"]
+
+AUTHENTICATION_BACKENDS = ["medical.email_auth_backend.EmailBackend"]

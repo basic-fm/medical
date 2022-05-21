@@ -30,7 +30,6 @@ class DeliveryAdmin(admin.ModelAdmin):
     ]
     inlines = [ReceitInline]
 
-    # @staticmethod
     def parcel_count(self, obj: Delivery):
         return obj.parcels.count()
 
