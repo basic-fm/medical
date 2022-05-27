@@ -34,8 +34,8 @@ INSTALLED_APPS = [
     "django_filters",
     "storages",
     # local apps
-    "tracking",
-    "accounts",
+    "medical.tracking",
+    "medical.accounts",
 ]
 
 MIDDLEWARE = [
@@ -117,7 +117,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = []
 
 if DEVELOPMENT_MODE is False:
-    STATICFILES_STORAGE = "medical.lib.storage_backends.StaticStorage"
+    STATICFILES_STORAGE = "medical.storage.storage_backends.StaticStorage"
 
 
 # Rest Framework
@@ -146,6 +146,7 @@ AWS_S3_FILE_OVERWRITE = False
 
 # Other settings
 LOGIN_REDIRECT_URL = "/"
+
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 CSRF_TRUSTED_ORIGINS = ["https://*.basic-fm.info", "https://*.127.0.0.1"]
 

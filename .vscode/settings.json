@@ -2,7 +2,7 @@
   "files.exclude": {
     "**/__pycache__": true,
     "**/__init__.py": true,
-    "venv": true
+    "**/.*": true,
   },
   "python.formatting.provider": "black",
   "python.analysis.typeCheckingMode": "basic"

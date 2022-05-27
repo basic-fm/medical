@@ -5,7 +5,8 @@ from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
-from tracking.models import Car, Delivery, Place, Project
+
+from ..models import Car, Delivery, Place, Project
 
 User = get_user_model()
 
