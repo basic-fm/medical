@@ -11,5 +11,5 @@ COPY . .
 
 RUN python manage.py collectstatic --noinput
 # CMD [ "gunicorn", "core.wsgi", "0.0.0.0:8000"]
-CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "core.wsgi:application"]
+CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "medical.wsgi:application"]
 
