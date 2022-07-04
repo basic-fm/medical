@@ -1,3 +1,6 @@
+import base64
+from io import BytesIO
+
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django_filters import rest_framework as filters
@@ -90,11 +93,11 @@ class DeliverySet(viewsets.ModelViewSet):
     @action(
         detail=True,
         methods=["post"],
-        parser_classes=[MultiPartParser, FormParser],
         serializer_classes={"default": ReceitSerializer},
     )
     def finish_delivery(self, request, pk=None):
         serializer = ReceitSerializer(data=request.data)
+
         serializer.is_valid(raise_exception=True)
         serializer.save(delivery_id=pk)
 

@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 
 from ..models import Car, Delivery, Parcel, Place, Project, Receit
@@ -37,6 +38,8 @@ class ParcelSerializer(serializers.ModelSerializer):
 
 
 class ReceitSerializer(serializers.ModelSerializer):
+    image = Base64ImageField()
+
     class Meta:
         model = Receit
         fields = ["id", "name", "image"]
