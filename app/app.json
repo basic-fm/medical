@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "BASIC Tracking",
+    "slug": "basic-tracking",
+    "version": "2.1",
+    "orientation": "portrait",
+    "icon": "./assets/images/tracking.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "bundleIdentifier": "info.basic-fm.medical",
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/tracking.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "info.basic_fm.medical"
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    },
+    "jsEngine": "hermes",
+    "plugins": ["sentry-expo"]
+  }
+}
